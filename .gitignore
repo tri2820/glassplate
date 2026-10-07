@@ -1,0 +1,14 @@
+.DS_Store
+DerivedData/
+build/
+.asc/artifacts/
+.asc/runs/
+*.xcarchive
+*.ipa
+*.xcresult
+xcuserdata/
+
+# Local App Store Connect credentials and overrides
+.env
+.asc/config.json
+

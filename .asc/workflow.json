@@ -1,0 +1,64 @@
+{
+  "env": {
+    "PROJECT": "Glassplate.xcodeproj",
+    "SCHEME": "Glassplate",
+    "ARCHIVE_PATH": ".asc/artifacts/Glassplate.xcarchive",
+    "IPA_PATH": ".asc/artifacts/Glassplate.ipa"
+  },
+  "before_all": "asc version",
+  "workflows": {
+    "build": {
+      "description": "Compile the app for a generic iOS Simulator without code signing",
+      "steps": [
+        {
+          "name": "build",
+          "run": "asc xcode build --project $PROJECT --scheme $SCHEME --configuration Debug --destination 'generic/platform=iOS Simulator' --no-code-signing --output json"
+        }
+      ]
+    },
+    "archive": {
+      "private": true,
+      "description": "Create and export a signed App Store archive",
+      "steps": [
+        {
+          "name": "archive",
+          "run": "asc xcode archive --project $PROJECT --scheme $SCHEME --configuration Release --clean --archive-path $ARCHIVE_PATH --overwrite --output json"
+        },
+        {
+          "name": "export",
+          "run": "asc xcode export --archive-path $ARCHIVE_PATH --ipa-path $IPA_PATH --overwrite --output json"
+        }
+      ]
+    },
+    "testflight": {
+      "description": "Archive, export, upload, and distribute to a TestFlight group",
+      "steps": [
+        {
+          "name": "require_values",
+          "run": "test -n \"$APP_ID\" && test -n \"$GROUP_ID\""
+        },
+        {
+          "workflow": "archive"
+        },
+        {
+          "name": "publish_testflight",
+          "run": "asc publish testflight --app $APP_ID --ipa $IPA_PATH --group \"$GROUP_ID\" --wait --output json"
+        }
+      ]
+    },
+    "appstore_preview": {
+      "description": "Dry-run the App Store publish plan using an existing exported IPA",
+      "steps": [
+        {
+          "name": "require_values",
+          "run": "test -n \"$APP_ID\" && test -n \"$VERSION\" && test -f \"$IPA_PATH\""
+        },
+        {
+          "name": "preview",
+          "run": "asc publish appstore --app $APP_ID --ipa $IPA_PATH --version $VERSION --dry-run --output json"
+        }
+      ]
+    }
+  }
+}
+
