@@ -41,6 +41,17 @@
                ReferencedContainer = "container:Glassplate.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E10000000000000000000003"
+               BuildableName = "GlassplateUITests.xctest"
+               BlueprintName = "GlassplateUITests"
+               ReferencedContainer = "container:Glassplate.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

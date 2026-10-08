@@ -12,3 +12,11 @@ xcuserdata/
 .env
 .asc/config.json
 
+# Cloudflare Worker local state and dependencies
+.wrangler/
+api/node_modules/
+api/.dev.vars
+
+# Command Code workspace state
+.commandcode/
+

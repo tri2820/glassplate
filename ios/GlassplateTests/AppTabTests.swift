@@ -3,7 +3,7 @@ import XCTest
 
 final class AppTabTests: XCTestCase {
     func testEveryTabHasDisplayMetadata() {
-        XCTAssertEqual(AppTab.allCases.count, 3)
+        XCTAssertEqual(AppTab.allCases.count, 4)
 
         for tab in AppTab.allCases {
             XCTAssertFalse(tab.title.isEmpty)
@@ -13,6 +13,7 @@ final class AppTabTests: XCTestCase {
 
     func testRawValuesAreStable() {
         XCTAssertEqual(AppTab.home.rawValue, "home")
+        XCTAssertEqual(AppTab.chat.rawValue, "chat")
         XCTAssertEqual(AppTab.explore.rawValue, "explore")
         XCTAssertEqual(AppTab.profile.rawValue, "profile")
     }

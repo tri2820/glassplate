@@ -1,0 +1,15 @@
+{
+  "originHash" : "00a948ad5069a812079de2410a0ba7131e3344a86b8573627f898c4033284e21",
+  "pins" : [
+    {
+      "identity" : "swift-ai-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zaidmukaddam/swift-ai-sdk",
+      "state" : {
+        "revision" : "d8d108ccf606a154647ef7eae948775a1e7aa969",
+        "version" : "0.3.0"
+      }
+    }
+  ],
+  "version" : 3
+}

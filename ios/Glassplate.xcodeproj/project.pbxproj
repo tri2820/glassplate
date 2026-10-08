@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,10 +17,21 @@
 		A10000000000000000000008 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* ProfileView.swift */; };
 		A10000000000000000000009 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* Assets.xcassets */; };
 		A1000000000000000000000A /* AppTabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* AppTabTests.swift */; };
+		A1000000000000000000000B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* ChatView.swift */; };
+		A1000000000000000000000C /* AI in Frameworks */ = {isa = PBXBuildFile; productRef = AB0000000000000000000001 /* AI */; };
+		A1000000000000000000000D /* UITestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000E /* UITestSupport.swift */; };
+		A1000000000000000000000E /* ChatScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000F /* ChatScreenshotTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		C10000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E10000000000000000000001;
+			remoteInfo = Glassplate;
+		};
+		C10000000000000000000002 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D10000000000000000000001 /* Project object */;
 			proxyType = 1;
@@ -42,6 +53,10 @@
 		B1000000000000000000000A /* AppTabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabTests.swift; sourceTree = "<group>"; };
 		B1000000000000000000000B /* Glassplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Glassplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1000000000000000000000C /* GlassplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlassplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1000000000000000000000D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000E /* UITestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestSupport.swift; sourceTree = "<group>"; };
+		B1000000000000000000000F /* ChatScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreenshotTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000010 /* GlassplateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlassplateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,10 +64,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000000000000000000000C /* AI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F10000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10000000000000000000003 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -67,6 +90,7 @@
 			children = (
 				G10000000000000000000002 /* Glassplate */,
 				G10000000000000000000009 /* GlassplateTests */,
+				G1000000000000000000000E /* GlassplateUITests */,
 				G1000000000000000000000A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,6 +101,7 @@
 				G10000000000000000000003 /* App */,
 				G10000000000000000000004 /* Components */,
 				G10000000000000000000005 /* Features */,
+				G1000000000000000000000D /* Support */,
 				G10000000000000000000008 /* Resources */,
 			);
 			path = Glassplate;
@@ -107,6 +132,7 @@
 				G10000000000000000000006 /* Home */,
 				G10000000000000000000007 /* Explore */,
 				G1000000000000000000000B /* Profile */,
+				G1000000000000000000000C /* Chat */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -135,6 +161,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		G1000000000000000000000C /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000000D /* ChatView.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		G10000000000000000000008 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,11 +185,28 @@
 			path = GlassplateTests;
 			sourceTree = "<group>";
 		};
+		G1000000000000000000000D /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000000E /* UITestSupport.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		G1000000000000000000000E /* GlassplateUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000000F /* ChatScreenshotTests.swift */,
+			);
+			path = GlassplateUITests;
+			sourceTree = "<group>";
+		};
 		G1000000000000000000000A /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				B1000000000000000000000B /* Glassplate.app */,
 				B1000000000000000000000C /* GlassplateTests.xctest */,
+				B10000000000000000000010 /* GlassplateUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,6 +227,9 @@
 			dependencies = (
 			);
 			name = Glassplate;
+			packageProductDependencies = (
+				AB0000000000000000000001 /* AI */,
+			);
 			productName = Glassplate;
 			productReference = B1000000000000000000000B /* Glassplate.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +252,24 @@
 			productReference = B1000000000000000000000C /* GlassplateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		E10000000000000000000003 /* GlassplateUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H10000000000000000000004 /* Build configuration list for PBXNativeTarget "GlassplateUITests" */;
+			buildPhases = (
+				I10000000000000000000003 /* Sources */,
+				F10000000000000000000003 /* Frameworks */,
+				J10000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				K10000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = GlassplateUITests;
+			productName = GlassplateUITests;
+			productReference = B10000000000000000000010 /* GlassplateUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -215,10 +287,13 @@
 						CreatedOnToolsVersion = 26.0;
 						TestTargetID = E10000000000000000000001;
 					};
+					E10000000000000000000003 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = E10000000000000000000001;
+					};
 				};
 			};
 			buildConfigurationList = H10000000000000000000001 /* Build configuration list for PBXProject "Glassplate" */;
-			compatibilityVersion = "Xcode 16.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -227,13 +302,17 @@
 			);
 			mainGroup = G10000000000000000000001;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
+			packageReferences = (
+				AA0000000000000000000001 /* XCRemoteSwiftPackageReference "swift-ai-sdk" */,
+			);
+			preferredProjectObjectVersion = 90;
 			productRefGroup = G1000000000000000000000A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				E10000000000000000000001 /* Glassplate */,
 				E10000000000000000000002 /* GlassplateTests */,
+				E10000000000000000000003 /* GlassplateUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -248,6 +327,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		J10000000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		J10000000000000000000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,6 +355,8 @@
 				A10000000000000000000006 /* HomeView.swift in Sources */,
 				A10000000000000000000007 /* ExploreView.swift in Sources */,
 				A10000000000000000000008 /* ProfileView.swift in Sources */,
+				A1000000000000000000000B /* ChatView.swift in Sources */,
+				A1000000000000000000000D /* UITestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +368,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		I10000000000000000000003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000000E /* ChatScreenshotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -287,6 +383,11 @@
 			isa = PBXTargetDependency;
 			target = E10000000000000000000001 /* Glassplate */;
 			targetProxy = C10000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		K10000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E10000000000000000000001 /* Glassplate */;
+			targetProxy = C10000000000000000000002 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -488,6 +589,32 @@
 			};
 			name = Release;
 		};
+		L10000000000000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.glassplate.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Glassplate;
+			};
+			name = Debug;
+		};
+		L10000000000000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.glassplate.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Glassplate;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -518,7 +645,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		H10000000000000000000004 /* Build configuration list for PBXNativeTarget "GlassplateUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				L10000000000000000000007 /* Debug */,
+				L10000000000000000000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AA0000000000000000000001 /* XCRemoteSwiftPackageReference "swift-ai-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zaidmukaddam/swift-ai-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 0.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AB0000000000000000000001 /* AI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA0000000000000000000001 /* XCRemoteSwiftPackageReference "swift-ai-sdk" */;
+			productName = AI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D10000000000000000000001 /* Project object */;
 }
