@@ -21,6 +21,7 @@
 		A1000000000000000000000C /* AI in Frameworks */ = {isa = PBXBuildFile; productRef = AB0000000000000000000001 /* AI */; };
 		A1000000000000000000000D /* UITestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000E /* UITestSupport.swift */; };
 		A1000000000000000000000E /* ChatScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000F /* ChatScreenshotTests.swift */; };
+		A1000000000000000000000F /* Textual in Frameworks */ = {isa = PBXBuildFile; productRef = AB0000000000000000000002 /* Textual */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1000000000000000000000C /* AI in Frameworks */,
+				A1000000000000000000000F /* Textual in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +231,7 @@
 			name = Glassplate;
 			packageProductDependencies = (
 				AB0000000000000000000001 /* AI */,
+				AB0000000000000000000002 /* Textual */,
 			);
 			productName = Glassplate;
 			productReference = B1000000000000000000000B /* Glassplate.app */;
@@ -304,6 +307,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				AA0000000000000000000001 /* XCRemoteSwiftPackageReference "swift-ai-sdk" */,
+				AA0000000000000000000002 /* XCRemoteSwiftPackageReference "textual" */,
 			);
 			preferredProjectObjectVersion = 90;
 			productRefGroup = G1000000000000000000000A /* Products */;
@@ -665,6 +669,14 @@
 				version = 0.3.0;
 			};
 		};
+		AA0000000000000000000002 /* XCRemoteSwiftPackageReference "textual" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/textual";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -672,6 +684,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA0000000000000000000001 /* XCRemoteSwiftPackageReference "swift-ai-sdk" */;
 			productName = AI;
+		};
+		AB0000000000000000000002 /* Textual */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA0000000000000000000002 /* XCRemoteSwiftPackageReference "textual" */;
+			productName = Textual;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

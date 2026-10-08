@@ -3,10 +3,15 @@ import SwiftUI
 struct ProfileView: View {
     @AppStorage("prefersHaptics") private var prefersHaptics = true
     @AppStorage("usesCompactCards") private var usesCompactCards = false
+    @AppStorage("prefersDarkMode") private var prefersDarkMode = false
 
     var body: some View {
         NavigationStack {
             Form {
+                Section("Appearance") {
+                    Toggle("Dark mode", isOn: $prefersDarkMode)
+                }
+
                 Section("Experience") {
                     Toggle("Haptic feedback", isOn: $prefersHaptics)
                     Toggle("Compact cards", isOn: $usesCompactCards)
@@ -26,7 +31,7 @@ struct ProfileView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background { AmbientBackground() }
+            .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
             .navigationTitle("Profile")
         }
     }

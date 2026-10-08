@@ -26,7 +26,17 @@ enum LaunchConfiguration {
         case "conversation":
             return [
                 .user("What can you do?"),
-                .assistant("I stream replies through the Glassplate Worker. Ask me anything.")
+                .assistant("""
+                I render **Markdown** replies:
+
+                1. Headings and *emphasis*
+                2. Lists, `inline code`, and [links](https://example.com)
+                3. Fenced code blocks:
+
+                ```swift
+                print("Hello, world!")
+                ```
+                """)
             ]
         case "long":
             return [

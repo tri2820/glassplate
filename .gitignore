@@ -20,3 +20,6 @@ api/.dev.vars
 # Command Code workspace state
 .commandcode/
 
+# Locally generated screenshots
+screenshots/
+

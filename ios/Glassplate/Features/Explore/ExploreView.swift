@@ -39,7 +39,7 @@ struct ExploreView: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background { AmbientBackground() }
+            .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
             .navigationTitle("Explore")
             .searchable(text: $query, prompt: "Search patterns")
         }

@@ -30,7 +30,9 @@ final class ChatScreenshotTests: XCTestCase {
         // The field must clear right away, not after the next unrelated render.
         XCTAssertNotEqual(composer(in: app).value as? String, "Hello there")
 
-        let reply = app.staticTexts["Hello! I'm the Glassplate assistant. Ask me anything."]
+        let reply = app.staticTexts
+            .matching(NSPredicate(format: "label CONTAINS %@", "Glassplate assistant"))
+            .firstMatch
         XCTAssertTrue(reply.waitForExistence(timeout: 10))
         capture(named: "chat-sent")
     }

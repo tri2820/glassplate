@@ -122,10 +122,10 @@ xcodebuild test -project ios/Glassplate.xcodeproj -scheme Glassplate \
   -only-testing:GlassplateUITests \
   -resultBundlePath .asc/artifacts/uitests.xcresult
 
-# Pull the screenshots out (PNGs + manifest.json)
+# Pull the screenshots out (PNGs + manifest.json) into the repo-root screenshots/ dir
 xcrun xcresulttool export attachments \
   --path .asc/artifacts/uitests.xcresult \
-  --output-path .asc/artifacts/screenshots
+  --output-path screenshots
 ```
 
 Launch arguments the app understands (only honored with `-uitest`, DEBUG builds only):

@@ -1,5 +1,6 @@
 import SwiftUI
 import AI
+import Textual
 
 struct ChatView: View {
     var body: some View {
@@ -31,7 +32,7 @@ private struct ChatScreen: View {
         _chat = State(initialValue: Self.makeSession())
     }
 
-    private static func makeSession() -> ChatSession {
+    private static func makeSession(seeded: Bool = true) -> ChatSession {
         if LaunchConfiguration.isUITesting {
             return ChatSession(
                 transport: ScriptedChatTransport(
@@ -39,7 +40,7 @@ private struct ChatScreen: View {
                     delay: LaunchConfiguration.scriptedDelay
                 ),
                 id: "uitest",
-                messages: LaunchConfiguration.seedMessages
+                messages: seeded ? LaunchConfiguration.seedMessages : []
             )
         }
 
@@ -57,6 +58,20 @@ private struct ChatScreen: View {
             .contentShape(Rectangle())
             .simultaneousGesture(TapGesture().onEnded { isComposerFocused = false })
             .safeAreaInset(edge: .bottom, spacing: 0) { composerArea }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: startNewChat) {
+                        Label("New chat", systemImage: "square.and.pencil")
+                    }
+                    .accessibilityIdentifier("chat.new")
+                }
+            }
+    }
+
+    private func startNewChat() {
+        chat = Self.makeSession(seeded: false)
+        prompt = ""
+        isComposerFocused = false
     }
 
     // MARK: - Transcript
@@ -150,11 +165,10 @@ private struct ChatScreen: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 11)
                 .frame(minHeight: 44)
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 22, style: .continuous)
-                        .strokeBorder(.primary.opacity(0.08), lineWidth: 0.5)
-                }
+                .background(
+                    Color(uiColor: .tertiarySystemFill),
+                    in: RoundedRectangle(cornerRadius: GlassSurfaceRadius.control, style: .continuous)
+                )
                 .focused($isComposerFocused)
                 .submitLabel(.send)
                 .onSubmit(send)
@@ -213,18 +227,36 @@ private struct ComposerButton: View {
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: systemImage)
-                .font(.system(size: 17, weight: .bold))
-                .foregroundStyle(.white)
-                .frame(width: 44, height: 44)
-                .background(tint.gradient, in: .circle)
+            ComposerButtonGlyph(systemImage: systemImage, tint: tint)
         }
         .buttonStyle(.plain)
         .disabled(!isEnabled)
-        .opacity(isEnabled ? 1 : 0.3)
-        .animation(.easeInOut(duration: 0.15), value: isEnabled)
         .accessibilityLabel(label)
         .accessibilityIdentifier(identifier)
+    }
+}
+
+/// Reads the button's real enabled state from the environment, so the disabled
+/// appearance is driven by `.disabled(...)` (including an ancestor's) instead of a
+/// hand-rolled opacity.
+private struct ComposerButtonGlyph: View {
+    @Environment(\.isEnabled) private var isEnabled
+
+    let systemImage: String
+    let tint: Color
+
+    var body: some View {
+        Image(systemName: systemImage)
+            .font(.system(size: 17, weight: .bold))
+            .foregroundStyle(isEnabled ? Color.white : Color.secondary)
+            .frame(width: 44, height: 44)
+            .background(fill, in: .circle)
+    }
+
+    private var fill: AnyShapeStyle {
+        isEnabled
+            ? AnyShapeStyle(tint.gradient)
+            : AnyShapeStyle(Color(uiColor: .tertiarySystemFill))
     }
 }
 
@@ -260,25 +292,13 @@ private struct ErrorBanner: View {
 private struct TypingBubble: View {
     var body: some View {
         HStack {
-            PhaseAnimator([0, 1, 2]) { phase in
-                HStack(spacing: 5) {
-                    ForEach(0..<3, id: \.self) { index in
-                        Circle()
-                            .fill(.secondary)
-                            .frame(width: 7, height: 7)
-                            .opacity(phase == index ? 1 : 0.3)
-                    }
-                }
-            } animation: { _ in
-                .easeInOut(duration: 0.3)
-            }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 13)
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .strokeBorder(.primary.opacity(0.06), lineWidth: 0.5)
-            }
+            TypingDots()
+                .padding(.horizontal, 14)
+                .padding(.vertical, 13)
+                .background(
+                    Color(uiColor: .secondarySystemBackground),
+                    in: RoundedRectangle(cornerRadius: GlassSurfaceRadius.control, style: .continuous)
+                )
 
             Spacer(minLength: 48)
         }
@@ -286,6 +306,42 @@ private struct TypingBubble: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Assistant is typing")
         .accessibilityIdentifier("chat.typing")
+    }
+}
+
+/// Sequentially pulsing dots. Driven by a one-shot state toggle with a repeating
+/// SwiftUI animation (a perpetual `TimelineView(.animation)` clock here would keep
+/// the app from ever going idle for UI tests).
+private struct TypingDots: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        HStack(spacing: 5) {
+            ForEach(0..<3, id: \.self) { index in
+                TypingDot(delay: Double(index) * 0.16, isStatic: reduceMotion)
+            }
+        }
+    }
+}
+
+private struct TypingDot: View {
+    let delay: Double
+    let isStatic: Bool
+
+    @State private var isBright = false
+
+    var body: some View {
+        Circle()
+            .fill(.secondary)
+            .frame(width: 7, height: 7)
+            .opacity(isStatic ? 0.6 : (isBright ? 1 : 0.35))
+            .animation(
+                isStatic
+                    ? nil
+                    : .easeInOut(duration: 0.45).repeatForever(autoreverses: true).delay(delay),
+                value: isBright
+            )
+            .onAppear { isBright = true }
     }
 }
 
@@ -297,11 +353,13 @@ private struct MessageBubble: View {
     private var isUser: Bool { message.role == .user }
 
     private var shape: UnevenRoundedRectangle {
-        UnevenRoundedRectangle(
-            topLeadingRadius: 20,
-            bottomLeadingRadius: isUser ? 20 : 6,
-            bottomTrailingRadius: isUser ? 6 : 20,
-            topTrailingRadius: 20,
+        let radius = GlassSurfaceRadius.control
+        let tail: CGFloat = 6
+        return UnevenRoundedRectangle(
+            topLeadingRadius: radius,
+            bottomLeadingRadius: isUser ? radius : tail,
+            bottomTrailingRadius: isUser ? tail : radius,
+            topTrailingRadius: radius,
             style: .continuous
         )
     }
@@ -333,8 +391,7 @@ private struct MessageBubble: View {
                 .accessibilityElement(children: .combine)
         } else {
             content
-                .background(.regularMaterial, in: shape)
-                .overlay { shape.strokeBorder(.primary.opacity(0.06), lineWidth: 0.5) }
+                .background(Color(uiColor: .secondarySystemBackground), in: shape)
                 .foregroundStyle(.primary)
                 .textSelection(.enabled)
                 .accessibilityElement(children: .combine)
@@ -346,9 +403,15 @@ private struct MessageBubble: View {
         switch part {
         case .text(let text):
             if !text.text.isEmpty {
-                Text(text.text)
-                    .font(.body)
-                    .fixedSize(horizontal: false, vertical: true)
+                if isUser {
+                    Text(text.text)
+                        .font(.body)
+                        .fixedSize(horizontal: false, vertical: true)
+                } else {
+                    StructuredText(markdown: text.text)
+                        .textual.structuredTextStyle(.default)
+                        .textual.textSelection(.enabled)
+                }
             }
         case .reasoning(let reasoning):
             if !reasoning.text.isEmpty {
@@ -405,7 +468,7 @@ private struct ToolChip: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 8)
-        .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: GlassSurfaceRadius.chip, style: .continuous))
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Tool \(tool.toolName), \(label)")
     }
