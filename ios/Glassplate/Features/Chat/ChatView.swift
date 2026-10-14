@@ -49,7 +49,8 @@ private struct ChatScreen: View {
             baseURL: workerBaseURL,
             apiKey: nil
         )
-        let model = provider.languageModel("deepseek/deepseek-v4.1-flash")
+        // The Worker owns the real model id; this value is overwritten server-side.
+        let model = provider.languageModel("default/model")
         return ChatSession(transport: LocalChatTransport(model: model))
     }
 

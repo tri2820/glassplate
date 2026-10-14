@@ -26,7 +26,9 @@ iOS: open `ios/Glassplate.xcodeproj` and build the `Glassplate` scheme. The Chat
 - **DEBUG** → `https://envy.tailc3387.ts.net` (Tailscale Serve on this Mac, see below).
 - **Release** → `https://glassplate.nguyenvantri2820.workers.dev`.
 
-The Worker injects `COMMANDCODE_API_KEY` from `api/.dev.vars` (gitignored). Never commit it.
+The Worker injects `COMMANDCODE_API_KEY` from `api/.dev.vars` (gitignored) and sets the chat model
+from `CHAT_MODEL` in `api/wrangler.toml`. It overwrites whatever `model` the client sends, so the app
+never names a real model — it sends a `default/model` placeholder. Never commit the key.
 
 ## How a device reaches the local Worker (and why HTTPS)
 
